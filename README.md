@@ -4,13 +4,13 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+BUILD
+-------------
 
-A few resources to get you started if this is your first Flutter project:
+This application use some packages that are needs auto generate codes(Build runner) like auto route, freezed,  injectable  and json serilizable.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+You should in first step run build runner with the following command:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh 
+flutter packages pub run build_runner watch --delete-conflicting-outputs
+```
