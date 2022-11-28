@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../consts/app_image.dart';
+import '../../core/consts/app_image.dart';
 import 'bottom_navigation_item.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {

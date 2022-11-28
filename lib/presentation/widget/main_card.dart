@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:iranian/consts/app_image.dart';
+import 'package:iranian/core/consts/app_image.dart';
 
 import 'outline_button.dart';
 

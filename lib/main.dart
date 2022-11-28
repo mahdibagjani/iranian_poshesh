@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:injectable/injectable.dart';
+import 'injection.dart';
 import 'presentation/pages/home_page.dart';
 
-void main() {
+void main()async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.blue, // navigation bar color
     statusBarColor: Color(0xff1C4870), // status bar color
   ));
+  await configureInjection(Environment.prod);
   runApp(const MyApp());
 }
 

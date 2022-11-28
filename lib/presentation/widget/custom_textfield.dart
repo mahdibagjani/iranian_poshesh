@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iranian/consts/app_image.dart';
+import 'package:iranian/core/consts/app_image.dart';
 
 class CustomTextfield extends StatefulWidget {
   const CustomTextfield({Key? key}) : super(key: key);
