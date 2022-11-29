@@ -20,7 +20,7 @@ class _MainCardState extends State<MainCard> {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 16),
+          margin:  const EdgeInsets.only(bottom: 16),
           padding:
               const EdgeInsets.only(top: 40, bottom: 8, left: 16, right: 16),
           decoration: BoxDecoration(
@@ -59,17 +59,17 @@ class _MainCardState extends State<MainCard> {
           ]),
         ),
         Positioned(
+          left: -11,
+          top: -2,
           child: Image.asset(
             AppImage.bookmarkIcon,
             width: 50,
             height: 45,
           ),
-          left: -11,
-          top: 14,
         ),
         Container(
-          margin: EdgeInsets.only(left: 4, top: 25),
-          child: Text('خودم',
+          margin: const EdgeInsets.only(left: 4, top: 10),
+          child:  const  Text('خودم',
               style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w400,

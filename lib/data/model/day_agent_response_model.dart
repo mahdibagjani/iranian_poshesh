@@ -30,7 +30,7 @@ class DayAgentResponseModel extends DayAgentResponseEntity {
   @JsonKey(name: 'page_size')
   final int pageSize;
   final int count;
-  final String next;
+  final String? next;
   final String? previous;
   final List<ResultModel> results;
 

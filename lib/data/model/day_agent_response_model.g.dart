@@ -13,7 +13,7 @@ DayAgentResponseModel _$DayAgentResponseModelFromJson(
       pageCount: json['page_count'] as int,
       pageSize: json['page_size'] as int,
       count: json['count'] as int,
-      next: json['next'] as String,
+      next: json['next'] as String?,
       previous: json['previous'] as String?,
       results: (json['results'] as List<dynamic>)
           .map((e) => ResultModel.fromJson(e as Map<String, dynamic>))

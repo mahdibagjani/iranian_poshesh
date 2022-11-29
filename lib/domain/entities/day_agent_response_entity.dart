@@ -15,7 +15,7 @@ class DayAgentResponseEntity extends Equatable {
   final int pageCount;
   final int pageSize;
   final int count;
-  final String next;
+  final String? next;
   final String? previous;
   final List<Result> results;
 

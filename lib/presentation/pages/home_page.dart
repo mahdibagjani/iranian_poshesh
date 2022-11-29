@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iranian/core/consts/app_image.dart';
-import 'package:iranian/core/failure.dart';
-import 'package:iranian/domain/usecase/get_day_agent_usecase.dart';
+import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 import 'package:iranian/presentation/bloc/day_agent_bloc.dart';
 import 'package:iranian/presentation/bloc/day_agent_state.dart';
-import 'package:iranian/presentation/widget/bottom_navigation_item.dart';
 import 'package:iranian/presentation/widget/custom_bottom_navigation_bar.dart';
 
 import '../../domain/entities/day_agent_request_entity.dart';
@@ -22,12 +19,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int curentIndex = 1;
+  int _page = 0;
+  List<Result> data = [];
+  bool isLoading = true;
+  late DayAgentResponseEntity _agentResponseEntity;
+  DayAgentState _state = Loading();
   late DayAgentBloc _agentBloc;
   @override
   void initState() {
     super.initState();
     _agentBloc = getIt<DayAgentBloc>();
-    _agentBloc.add(DayAgentEvent(request: DayAgentRequestEntity(page: 2,tab: 'issuance')));
+    _callDayAgentApi();
   }
 
   @override
@@ -36,59 +38,88 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Color(0xff1C4870),
-          actions: [
+          actions: const [
             Padding(
               padding: EdgeInsets.only(right: 16),
               child: Icon(Icons.menu),
             )
           ],
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(24),
                   bottomRight: Radius.circular(24))),
-          title: Text(
+          title: const Text(
             'پرونده های من',
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
           ),
         ),
         body: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => _agentBloc,)
-          ], child: BlocBuilder<DayAgentBloc, DayAgentState>(
-          builder: (context, state) {
-            if (state is Loading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is Success) {
-              print('length ${state.dayAgentResponseEntity.results.length}');
-              return Column(children: [
-                Expanded(
-                  child: PageView(
-                    children: [HomePageScaffoldWidget(data:state.dayAgentResponseEntity.results)],
-                  ),
-                ),
-                const CustomBottomNavigationBar()
-              ]);
-            } else {
-              return const Center(
-                child: Text('Error'),
-              );
-            }
-          },
-        ),
+            BlocProvider(
+              create: (context) => _agentBloc,
+            )
+          ],
+          child: BlocListener<DayAgentBloc, DayAgentState>(
+            listener: (context, state) {
+              setState(() {
+                _state = state;
+                if (state is Success) {
+                  _fillDataForListView(state.dayAgentResponseEntity);
+                }
+              });
+            },
+            child: _body(context, _state),
+          ),
         ));
   }
+
+  void _callDayAgentApi() {
+    _page++;
+    _agentBloc.add(DayAgentEvent(
+        request: DayAgentRequestEntity(page: _page, tab: 'issuance')));
+  }
+
+  _body(BuildContext context, DayAgentState state) {
+    if (state is Success || data.isNotEmpty) {
+      return Stack(
+        children: [
+          Column(children: [
+            Expanded(
+              child: PageView(
+                children: [
+                  HomePageScaffoldWidget(
+                    data: data,
+                    atBotton: () {
+                      if ((state as Success)
+                              .dayAgentResponseEntity
+                              .next
+                              ?.isNotEmpty ??
+                          false) {
+                        _callDayAgentApi();
+                      }
+                    },
+                  )
+                ],
+              ),
+            ),
+            const CustomBottomNavigationBar()
+          ]),
+          if (state is Loading) const Center(child: CircularProgressIndicator())
+        ],
+      );
+    } else if (state is Loading) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return const Center(
+        child: Text('Error'),
+      );
+    }
+  }
+
+  void _fillDataForListView(DayAgentResponseEntity results) {
+    print('data length ${data.length}');
+    _agentResponseEntity = results;
+    results.results.map((e) => data.add(e)).toList();
+    print('data length ${data.length}');
+  }
 }
-/*
-Column(children: [
-        Expanded(child: PageView(
-          children: [HomePageScaffoldWidget()],
-        ),),
-        CustomBottomNavigationBar()
-      ])
- Column(children: [
-        Expanded(child: PageView(
-          children: [HomePageScaffoldWidget()],
-        ),),
-        CustomBottomNavigationBar()
-      ])
-/ */
