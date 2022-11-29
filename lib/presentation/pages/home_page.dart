@@ -8,6 +8,7 @@ import 'package:iranian/presentation/bloc/day_agent_state.dart';
 import 'package:iranian/presentation/widget/bottom_navigation_item.dart';
 import 'package:iranian/presentation/widget/custom_bottom_navigation_bar.dart';
 
+import '../../domain/entities/day_agent_request_entity.dart';
 import '../../injection.dart';
 import '../bloc/day_agent_event.dart';
 import '../widget/home_page_scaffold_widget.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _agentBloc = getIt<DayAgentBloc>();
-    _agentBloc.add(DayAgentEvent());
+    _agentBloc.add(DayAgentEvent(request: DayAgentRequestEntity(page: 2,tab: 'issuance')));
   }
 
   @override
@@ -56,19 +57,19 @@ class _HomePageState extends State<HomePage> {
           ], child: BlocBuilder<DayAgentBloc, DayAgentState>(
           builder: (context, state) {
             if (state is Loading) {
-              return CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             } else if (state is Success) {
               print('length ${state.dayAgentResponseEntity.results.length}');
               return Column(children: [
                 Expanded(
                   child: PageView(
-                    children: [HomePageScaffoldWidget()],
+                    children: [HomePageScaffoldWidget(data:state.dayAgentResponseEntity.results)],
                   ),
                 ),
-                CustomBottomNavigationBar()
+                const CustomBottomNavigationBar()
               ]);
             } else {
-              return Center(
+              return const Center(
                 child: Text('Error'),
               );
             }

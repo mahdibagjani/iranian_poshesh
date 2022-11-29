@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entities/day_agent_request_entity.dart';
+import '../../domain/entities/day_agent_response_entity.dart';
 
 part 'day_agent_response_model.g.dart';
 

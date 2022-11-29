@@ -4,10 +4,12 @@ import 'package:injectable/injectable.dart';
 import 'package:iranian/core/failure.dart';
 import 'package:iranian/core/server_exception.dart';
 import 'package:iranian/data/model/day_agent_response_model.dart';
-import 'package:iranian/domain/entities/day_agent_request_entity.dart';
+import 'package:iranian/domain/entities/day_agent_response_entity.dart';
+
+import '../../model/day_agent_request_model.dart';
 
 abstract class RemoteDatasource {
-  Future<DayAgentResponseModel> getDayAgent();
+  Future<DayAgentResponseModel> getDayAgent({required DayAgentRequestModel request});
 }
 
 @LazySingleton(as: RemoteDatasource)
@@ -16,9 +18,10 @@ class RemoteDatasourceImp extends RemoteDatasource {
   final Dio dio;
   RemoteDatasourceImp(this.dio);
   @override
-  Future<DayAgentResponseModel> getDayAgent() async {
+  Future<DayAgentResponseModel> getDayAgent({required DayAgentRequestModel request}) async {
     final response = await dio.get(
-      "api/app/Dey_agent/requests_list/?tab=issuance",
+      "api/app/Dey_agent/requests_list/",
+      queryParameters:request.toJson(),
       options: Options(
         headers: {
           'Content-Type': 'application/json',

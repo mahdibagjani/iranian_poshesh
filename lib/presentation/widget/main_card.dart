@@ -2,11 +2,13 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:iranian/core/consts/app_image.dart';
+import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 
 import 'outline_button.dart';
 
 class MainCard extends StatefulWidget {
-  const MainCard({Key? key}) : super(key: key);
+  final Result data;
+  const MainCard({Key? key, required this.data}) : super(key: key);
 
   @override
   _MainCardState createState() => _MainCardState();
@@ -18,49 +20,68 @@ class _MainCardState extends State<MainCard> {
     return Stack(
       children: [
         Container(
-      padding: const EdgeInsets.only(top: 40, bottom: 8, left: 16, right: 16),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: const Color(0xffC3C3C3).withOpacity(.24), blurRadius: 8),
-          ],
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(children: [
-        textItem(title: 'شناسه پرونده ', text: '0iajz4o474'),
-        textItem(title: 'نام مشتری', text: 'محمدعلی مراد بیگ زاده'),
-        textItem(title: 'تلفن همراه', text: '09127825671'),
-        textItem(
-            title: 'محل بازدید',
-            text: 'شهرک غرب، فاز 4، زرافشان، خیابان شجریان، پلاک 13، واحد 8'),
-        const SizedBox(
-          height: 16,
-        ),
-        statusContaienr(),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            doneWidget(),
+          margin: EdgeInsets.only(top: 16),
+          padding:
+              const EdgeInsets.only(top: 40, bottom: 8, left: 16, right: 16),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: const Color(0xffC3C3C3).withOpacity(.24),
+                    blurRadius: 8),
+              ],
+              borderRadius: BorderRadius.circular(10)),
+          child: Column(children: [
+            textItem(title: 'شناسه پرونده ', text: widget.data.id.toString()),
+            textItem(
+                title: 'نام مشتری',
+                text: widget.data.applicantUserFullName.toString()),
+            textItem(
+                title: 'تلفن همراه',
+                text: widget.data.applicantUserPhoneNumber.toString()),
+            textItem(
+                title: 'محل بازدید',
+                text: widget.data.visitLocation.toString()),
             const SizedBox(
-              width: 45,
+              height: 16,
             ),
-            const OutlineButton(),
-          ],
+            statusContaienr(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                doneWidget(),
+                const SizedBox(
+                  width: 45,
+                ),
+                const OutlineButton(),
+              ],
+            ),
+          ]),
         ),
-      ]),
-    ),
-    Positioned(child: Image.asset(AppImage.bookmarkIcon,width: 50,height: 45,),left: -11,top: -3,),
-    Container(
-      margin: EdgeInsets.only(left: 4,top: 5),
-      child: Text('خودم',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white)),
-    )
+        Positioned(
+          child: Image.asset(
+            AppImage.bookmarkIcon,
+            width: 50,
+            height: 45,
+          ),
+          left: -11,
+          top: 14,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 4, top: 25),
+          child: Text('خودم',
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white)),
+        )
       ],
     );
   }
 
   Container statusContaienr() {
     return Container(
-      padding: const EdgeInsets.only(left: 16,right: 16,top: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -68,11 +89,11 @@ class _MainCardState extends State<MainCard> {
       child: Column(children: [
         statusContainerItem(
             text: 'وضعیت پرونده ',
-            title: 'تأیید شده توسط نماینده',
+            title: widget.data.status.toString(),
             iconPath: AppImage.documentIcon),
         statusContainerItem(
             text: 'زمان بازدید',
-            title: '14:11 -1401-06-01',
+            title: '${widget.data.visitTime}-${widget.data.visitDate}',
             iconPath: AppImage.clockIcon),
       ]),
     );
@@ -101,8 +122,14 @@ class _MainCardState extends State<MainCard> {
                 fontSize: 12,
                 fontWeight: FontWeight.w400),
           ),
-          const SizedBox(width: 8,),
-          Image.asset(iconPath,width: 18,height: 18,),
+          const SizedBox(
+            width: 8,
+          ),
+          Image.asset(
+            iconPath,
+            width: 18,
+            height: 18,
+          ),
         ],
       ),
     );

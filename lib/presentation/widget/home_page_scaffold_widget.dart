@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 import 'package:iranian/presentation/widget/tabbar.dart';
 
 import 'custom_textfield.dart';
 import 'main_card.dart';
 
 class HomePageScaffoldWidget extends StatefulWidget {
-  const HomePageScaffoldWidget({ Key? key }) : super(key: key);
+  final List<Result> data;
+  const HomePageScaffoldWidget({ Key? key, required this.data, }) : super(key: key);
 
   @override
   _HomePageScaffoldWidgetState createState() => _HomePageScaffoldWidgetState();
@@ -25,8 +27,14 @@ class _HomePageScaffoldWidgetState extends State<HomePageScaffoldWidget> {
       
         const SizedBox(height: 16,),
         CustomTextfield(),
-        const SizedBox(height: 16,),
-        MainCard()
+
+        
+       Expanded(child:  ListView.builder(
+          shrinkWrap: true,
+          itemCount: widget.data.length,
+          itemBuilder:(context, index) {
+          return MainCard(data: widget.data[index],);
+        },))
       ]),
     );
   }
