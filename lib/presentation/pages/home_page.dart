@@ -87,8 +87,7 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.bottomCenter,
         children: [
           Stack(children: [
-            Expanded(
-              child: PageView(
+            PageView(
                 children: [
                   HomePageScaffoldWidget(
                     data: data,
@@ -104,7 +103,6 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-            ),
            Positioned(child:  const CustomBottomNavigationBar(),bottom: 0,)
           ]),
           if (state is Loading) const Center(child: CircularProgressIndicator())

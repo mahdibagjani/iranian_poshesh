@@ -50,10 +50,9 @@ class _MainCardState extends State<MainCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 doneWidget(),
-                const SizedBox(
-                  width: 45,
-                ),
+                const Spacer(),
                 const OutlineButton(),
+                const Spacer(),
               ],
             ),
           ]),

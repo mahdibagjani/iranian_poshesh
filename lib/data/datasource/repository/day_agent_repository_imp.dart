@@ -19,12 +19,9 @@ class DayAgentRepositoryImp implements DayAgentRepository {
   @override
   Future<Either<Failure, DayAgentResponseEntity>> getDayAgent({required DayAgentRequestModel request}) async {
     try {
-       print('repository ok1');
       final res = await remoteDatasource.getDayAgent(request:  request);
-      print('repository ok');
       return Right(res);
     } on ServerException {
-        print('repository bad');
       return Left(ServerFailure());
     }
   }
