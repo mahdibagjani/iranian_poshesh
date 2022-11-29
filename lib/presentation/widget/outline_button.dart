@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iranian/core/consts/app_strings.dart';
+
+import '../../core/consts/app_color.dart';
 
 class OutlineButton extends StatelessWidget {
   const OutlineButton({Key? key}) : super(key: key);
@@ -12,13 +15,14 @@ class OutlineButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Color(0xff1C4870),width: 2),
+          border: Border.all(
+                  color: AppColor.primaryColor,width: 2),
           boxShadow: [
             BoxShadow(
                 color: const Color(0xffC6C6C6).withOpacity(.24), blurRadius: 8)
           ]),
       child: const Text(
-        'ورود به صفحه پرونده',
+       AppStrings.enterToDocPage,
         style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
       ),
     );

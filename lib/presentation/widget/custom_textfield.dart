@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iranian/core/consts/app_color.dart';
 import 'package:iranian/core/consts/app_image.dart';
+
+import '../../core/consts/app_strings.dart';
 
 class CustomTextfield extends StatefulWidget {
   const CustomTextfield({Key? key}) : super(key: key);
@@ -15,33 +18,32 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       height: 48,
       width: 343,
       alignment: Alignment.center,
-      padding: EdgeInsets.all(12),
+      padding:const  EdgeInsets.all(12),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5), color: Colors.white),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-           Image.asset(
+          Image.asset(
             AppImage.searchIcon,
-            width:24,height:24,
-            color: Color(0xff909090) ,
+            width: 24,
+            height: 24,
+            color: AppColor.greyHintColor,
           ),
           Expanded(
               child: Container(
-      alignment: Alignment.center,
-            child: TextField(
+            alignment: Alignment.center,
+            child: const TextField(
               textDirection: TextDirection.rtl,
               decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 24),
-                hintText: 'شناسه پرونده را وارد نمایید',
-                hintTextDirection: TextDirection.rtl,
-                hintStyle: TextStyle(
-                  color: Color(0xff909090)
-                )
-              ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(top: 24),
+                  hintText: AppStrings.enterDocId,
+                  hintTextDirection: TextDirection.rtl,
+                  hintStyle: TextStyle(
+                    color: AppColor.greyHintColor,
+                  )),
             ),
-         
           ))
         ],
       ),

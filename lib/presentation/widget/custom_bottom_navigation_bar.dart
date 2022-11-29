@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iranian/core/consts/app_strings.dart';
 
 import '../../core/consts/app_image.dart';
 import 'bottom_navigation_item.dart';
@@ -17,6 +18,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Container(
       height: 86,
+      width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
@@ -50,7 +52,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                     BottomNavigationItem(
                       iconPath: AppImage.documentForwardIcon,
                       isSelected: curentIndex==0,
-                      title: 'ارسال نواقص',
+                      title: AppStrings.SendDefectsame,
                       onClick: () {
                         setState(() {
                           curentIndex=0;
@@ -60,7 +62,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                     BottomNavigationItem(
                       iconPath: AppImage.homeIcon,
                       isSelected: curentIndex==1,
-                      title: 'خانه',
+                      title: AppStrings.home,
                       onClick: () {
                           setState(() {
                           curentIndex=1;
@@ -70,7 +72,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                     BottomNavigationItem(
                       iconPath: AppImage.documentOutlineIcon,
                       isSelected: curentIndex==2,
-                      title: 'پرونده های من',
+                      title: AppStrings.appbarName,
                       onClick: () {
                           setState(() {
                           curentIndex=2;

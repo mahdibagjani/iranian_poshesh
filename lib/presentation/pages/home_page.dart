@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iranian/core/consts/app_color.dart';
+import 'package:iranian/core/consts/app_strings.dart';
 import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 import 'package:iranian/presentation/bloc/day_agent_bloc.dart';
 import 'package:iranian/presentation/bloc/day_agent_state.dart';
@@ -37,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xff1C4870),
+          backgroundColor: AppColor.primaryColor,
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 16),
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   bottomLeft: Radius.circular(24),
                   bottomRight: Radius.circular(24))),
           title: const Text(
-            'پرونده های من',
+            AppStrings.appbarName,
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
           ),
         ),
@@ -82,8 +84,9 @@ class _HomePageState extends State<HomePage> {
   _body(BuildContext context, DayAgentState state) {
     if (state is Success || data.isNotEmpty) {
       return Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Column(children: [
+          Stack(children: [
             Expanded(
               child: PageView(
                 children: [
@@ -102,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const CustomBottomNavigationBar()
+           Positioned(child:  const CustomBottomNavigationBar(),bottom: 0,)
           ]),
           if (state is Loading) const Center(child: CircularProgressIndicator())
         ],
@@ -117,9 +120,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _fillDataForListView(DayAgentResponseEntity results) {
-    print('data length ${data.length}');
     _agentResponseEntity = results;
     results.results.map((e) => data.add(e)).toList();
-    print('data length ${data.length}');
   }
 }

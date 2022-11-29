@@ -27,7 +27,6 @@ class _HomePageScaffoldWidgetState extends State<HomePageScaffoldWidget> {
       scrollController: scrollController,
       atBottom: () {
         widget.atBotton?.call();
-        print('At bottom');
       },
     );
   }
@@ -35,22 +34,23 @@ class _HomePageScaffoldWidgetState extends State<HomePageScaffoldWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       alignment: Alignment.center,
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         const SizedBox(
           height: 24,
         ),
-        Tabbar(),
+        const Tabbar(),
         const SizedBox(
           height: 16,
         ),
-        CustomTextfield(),
+       const  CustomTextfield(),
         const SizedBox(
           height: 16,
         ),
         Expanded(
             child: ListView.builder(
+              padding: EdgeInsets.only(bottom: 70),
           shrinkWrap: true,
           controller: scrollController,
           itemCount: widget.data.length,

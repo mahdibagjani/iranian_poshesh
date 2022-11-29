@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:iranian/core/consts/app_color.dart';
 import 'package:iranian/core/consts/app_image.dart';
 import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 
+import '../../core/consts/app_strings.dart';
 import 'outline_button.dart';
 
 class MainCard extends StatefulWidget {
@@ -20,27 +20,27 @@ class _MainCardState extends State<MainCard> {
     return Stack(
       children: [
         Container(
-          margin:  const EdgeInsets.only(bottom: 16),
+          margin: const EdgeInsets.only(bottom: 16),
           padding:
               const EdgeInsets.only(top: 40, bottom: 8, left: 16, right: 16),
           decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    color: const Color(0xffC3C3C3).withOpacity(.24),
+                    color: AppColor.shadowColor.withOpacity(.24),
                     blurRadius: 8),
               ],
               borderRadius: BorderRadius.circular(10)),
           child: Column(children: [
-            textItem(title: 'شناسه پرونده ', text: widget.data.id.toString()),
+            textItem(title: AppStrings.docId, text: widget.data.id.toString()),
             textItem(
-                title: 'نام مشتری',
+                title: AppStrings.customerName,
                 text: widget.data.applicantUserFullName.toString()),
             textItem(
-                title: 'تلفن همراه',
+                title: AppStrings.phoneNumber,
                 text: widget.data.applicantUserPhoneNumber.toString()),
             textItem(
-                title: 'محل بازدید',
+                title: AppStrings.visitPlace,
                 text: widget.data.visitLocation.toString()),
             const SizedBox(
               height: 16,
@@ -69,7 +69,7 @@ class _MainCardState extends State<MainCard> {
         ),
         Container(
           margin: const EdgeInsets.only(left: 4, top: 10),
-          child:  const  Text('خودم',
+          child: const Text(AppStrings.me,
               style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
@@ -84,15 +84,14 @@ class _MainCardState extends State<MainCard> {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: const Color(0xffF6F6F8)),
+          borderRadius: BorderRadius.circular(10), color: AppColor.statusColor),
       child: Column(children: [
         statusContainerItem(
-            text: 'وضعیت پرونده ',
+            text: AppStrings.docStatus,
             title: widget.data.status.toString(),
             iconPath: AppImage.documentIcon),
         statusContainerItem(
-            text: 'زمان بازدید',
+            text: AppStrings.visitTime,
             title: '${widget.data.visitTime}-${widget.data.visitDate}',
             iconPath: AppImage.clockIcon),
       ]),
@@ -110,7 +109,7 @@ class _MainCardState extends State<MainCard> {
           Text(
             title,
             style: const TextStyle(
-                color: Color(0xff707070),
+                color: AppColor.greyLightColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w400),
           ),
@@ -118,7 +117,7 @@ class _MainCardState extends State<MainCard> {
           Text(
             text,
             style: const TextStyle(
-                color: Color(0xff505050),
+                color: AppColor.greyDarkColor,
                 fontSize: 12,
                 fontWeight: FontWeight.w400),
           ),
@@ -146,7 +145,7 @@ class _MainCardState extends State<MainCard> {
             child: Text(
               text,
               style: const TextStyle(
-                  color: Color(0xff505050),
+                  color: AppColor.greyDarkColor,
                   fontSize: 12,
                   fontWeight: FontWeight.w400),
             ),
@@ -159,7 +158,7 @@ class _MainCardState extends State<MainCard> {
               Text(
                 title,
                 style: const TextStyle(
-                    color: Color(0xff707070),
+                    color: AppColor.greyLightColor,
                     fontSize: 12,
                     fontWeight: FontWeight.w400),
               ),
@@ -170,7 +169,7 @@ class _MainCardState extends State<MainCard> {
                 height: 8,
                 width: 8,
                 decoration: BoxDecoration(
-                    color: const Color(0xffB7B7B7),
+                    color: AppColor.greyColor,
                     borderRadius: BorderRadius.circular(8)),
               ),
             ],
@@ -189,9 +188,9 @@ class _MainCardState extends State<MainCard> {
           height: 41,
         ),
         const Text(
-          "انجام شد",
+          AppStrings.done,
           style: TextStyle(
-              color: Color(0xff1CAE81),
+              color: AppColor.greenColor,
               fontSize: 12,
               fontWeight: FontWeight.w400),
         )

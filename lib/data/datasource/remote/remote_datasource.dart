@@ -1,15 +1,13 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iranian/core/failure.dart';
 import 'package:iranian/core/server_exception.dart';
 import 'package:iranian/data/model/day_agent_response_model.dart';
-import 'package:iranian/domain/entities/day_agent_response_entity.dart';
 
 import '../../model/day_agent_request_model.dart';
 
 abstract class RemoteDatasource {
-  Future<DayAgentResponseModel> getDayAgent({required DayAgentRequestModel request});
+  Future<DayAgentResponseModel> getDayAgent(
+      {required DayAgentRequestModel request});
 }
 
 @LazySingleton(as: RemoteDatasource)
@@ -18,17 +16,11 @@ class RemoteDatasourceImp extends RemoteDatasource {
   final Dio dio;
   RemoteDatasourceImp(this.dio);
   @override
-  Future<DayAgentResponseModel> getDayAgent({required DayAgentRequestModel request}) async {
+  Future<DayAgentResponseModel> getDayAgent(
+      {required DayAgentRequestModel request}) async {
     final response = await dio.get(
       "api/app/Dey_agent/requests_list/",
-      queryParameters:request.toJson(),
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNTA1OTMzLCJqdGkiOiI3NjdiYmRlMzk0NzI0MzAwOWUyNzFmNGE3MzZjMmU0NiIsInVzZXJfaWQiOjF9.oixr8nGbJte1imHY6xsHlZQJIKzMAbgE7YU2vgjPwnE',
-        },
-      ),
+      queryParameters: request.toJson(),
     );
     try {
       if (response.statusCode == 200) {
@@ -39,7 +31,6 @@ class RemoteDatasourceImp extends RemoteDatasource {
         throw ServerException();
       }
     } catch (e) {
-
       throw ServerException();
     }
   }
